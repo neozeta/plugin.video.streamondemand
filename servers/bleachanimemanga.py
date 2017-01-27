@@ -29,12 +29,13 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
     patron  = '<source\s+src\s*=\s*"([^"]+)'
     matches = re.compile(patron,re.DOTALL).findall(data)
     scrapertools.printMatches(matches)
-    print matches
+
     for match in matches:
+        if not re.match(r'^http://www.bleachanimemanga.org/', match):
+            match = 'http://www.bleachanimemanga.org/' + match
         videourl = match
-        logger.info(match)
         videourl = urllib.unquote(videourl)
-        videourl = 'http://www.bleachanimemanga.org/' + videourl
+        videourl = videourl
         video_urls.append( [ "[bleachanimemanga]" , videourl ] )
 
     for video_url in video_urls:
